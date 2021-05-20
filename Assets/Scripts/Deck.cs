@@ -124,7 +124,22 @@ public class Deck : MonoBehaviour
 
         /*TODO:
          * Comprobamos si el jugador ya ha perdido y mostramos mensaje
-         */      
+         */    
+        
+        if (valuesPlayer > 21) // si el valor del jugador es mayor que 21
+        {
+            finalMessage.text = "Game over, you've passed"; // pierdes
+            stickButton.interactable = false; // inhabilitamos los botones
+            hitButton.interactable = false;
+
+        }
+
+        else if (valuesPlayer == 21) // también si el valor del jugador vale 21
+        {
+            finalMessage.text = "Blacjack, you win!"; // ganas
+            stickButton.interactable = false; // inhabilitamos los botones
+            hitButton.interactable = false;
+        }
 
     }
 
