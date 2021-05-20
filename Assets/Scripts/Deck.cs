@@ -14,6 +14,12 @@ public class Deck : MonoBehaviour
 
     public int[] values = new int[52];
     int cardIndex = 0;    
+
+    int valuesPlayer = 0;
+    int valuesDealer = 0;
+    int[] cardsPlayer = new int[50];
+    int[] cardsDealer = new int[50];
+    int round = 0;
        
     private void Awake()
     {    
@@ -149,11 +155,42 @@ public class Deck : MonoBehaviour
          * Si estamos en la mano inicial, debemos voltear la primera carta del dealer.
          */
 
+        hitButton.interactable = false; // inhabilitamos los botones
+        dealer.GetComponent<CardHand>().cards[0].GetComponent<CardModel>().ToggleFace(true);
+
         /*TODO:
-         * Repartimos cartas al dealer si tiene 16 puntos o menos
-         * El dealer se planta al obtener 17 puntos o más
-         * Mostramos el mensaje del que ha ganado
-         */                
+       * Repartimos cartas al dealer si tiene 16 puntos o menos
+       * El dealer se planta al obtener 17 puntos o más
+       * Mostramos el mensaje del que ha ganado
+       */
+
+        while (valuesDealer <= 16) // mientras el valor del dealer valga 16 o menos
+        {
+            PushDealer(); // llamamos a Pushdealer
+        }
+
+        if (valuesDealer == 21) // si el valor del dealer es 21
+        {
+            finalMessage.text = "Blacjack! Perdiste"; // pierdes
+        }
+        else if (valuesDealer > 21) // si el valor del dealer es mayor que 21
+        {
+            finalMessage.text = "El dealer se pasó, ganaste";  // ganas
+        }
+        else if (valuesDealer < valuesPlayer) // si el valor del dealer es menor que el del jugador
+        {
+            finalMessage.text = "Ganaste"; // ganas
+        } 
+        else if (valuesDealer == valuesPlayer) // si el valor del dealer es igual que el del jugador
+        {
+            finalMessage.text = "Empataste"; // empatas
+        }
+        else // sino
+        {
+            finalMessage.text = "Perdiste"; // pierdes
+        }
+
+        stickButton.interactable = false; // inhabilitamos botón               
          
     }
 
