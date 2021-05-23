@@ -48,10 +48,20 @@ public class Deck : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 13; j++)
+            for (int j = 0; j < 13; j++) // j valores entre 1 y 13 (cartas de cada palo)
             {
-                values[varAux] = j + 1;
-                varAux++;
+             
+
+                if(j>=10)
+                {
+                    values[varAux] = 10;
+                    
+                }
+                else
+                {
+                     values[varAux] = j + 1;
+                     varAux++;
+                }
             }
         }
     }
@@ -240,7 +250,7 @@ public class Deck : MonoBehaviour
 
         if (valuesPlayer > 21) // si el valor del jugador es mayor que 21
         {
-            finalMessage.text = "Te pasaste, perdiste"; // pierdes
+            finalMessage.text = "Game over, you've passed"; // pierdes
             stickButton.interactable = false; // inhabilitamos los botones
             hitButton.interactable = false;
 
@@ -252,7 +262,7 @@ public class Deck : MonoBehaviour
 
         else if (valuesPlayer == 21) // también si el valor del jugador vale 21
         {
-            finalMessage.text = "Blacjack! Ganaste"; // ganas
+            finalMessage.text = "Blacjack, you win"; // ganas
             stickButton.interactable = false; // inhabilitamos los botones
             hitButton.interactable = false;
         }
