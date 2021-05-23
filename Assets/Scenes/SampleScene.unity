@@ -272,7 +272,9 @@ MonoBehaviour:
   stickButton: {fileID: 2074924244}
   playAgainButton: {fileID: 495796953}
   finalMessage: {fileID: 1167008771}
-  probMessage: {fileID: 459416828}
+  probMessage: {fileID: 1000492469}
+  probMessage1: {fileID: 522130487}
+  probMessage2: {fileID: 1030784470}
   values: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &276339162
 GameObject:
@@ -387,8 +389,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -541.35, y: 79}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -541.35, y: 72.25}
+  m_SizeDelta: {x: 160, y: 43.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459416828
 MonoBehaviour:
@@ -660,7 +662,7 @@ GameObject:
   - component: {fileID: 522130488}
   - component: {fileID: 522130487}
   m_Layer: 5
-  m_Name: TextProb (3)
+  m_Name: probM2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -975,8 +977,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -541.35, y: -9.5}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -541.35, y: -17.300003}
+  m_SizeDelta: {x: 160, y: 45.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &960380988
 MonoBehaviour:
@@ -1032,7 +1034,7 @@ GameObject:
   - component: {fileID: 1000492470}
   - component: {fileID: 1000492469}
   m_Layer: 5
-  m_Name: TextProb (1)
+  m_Name: probM1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1174,7 @@ GameObject:
   - component: {fileID: 1030784471}
   - component: {fileID: 1030784470}
   m_Layer: 5
-  m_Name: TextProb (5)
+  m_Name: probM3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1194,7 +1196,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -311.65, y: -130}
+  m_AnchoredPosition: {x: -541.35, y: -149}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1030784470
@@ -1352,8 +1354,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -541.35, y: -101}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -541.35, y: -110}
+  m_SizeDelta: {x: 160, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1257025598
 MonoBehaviour:
