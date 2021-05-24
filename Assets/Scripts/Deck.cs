@@ -44,23 +44,21 @@ public class Deck : MonoBehaviour
          * Por ejemplo, si en faces[1] hay un 2 de corazones, en values[1] debería haber un 2.
          */
 
-        int varAux = 0; 
+        int aux = 0;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++) // bucle que recorre cada palo
         {
-            for (int j = 0; j < 13; j++) // j valores entre 1 y 13 (cartas de cada palo)
+            for (int j = 0; j < 13; j++) // bucle que recorre cada carta de cada valo
             {
-             
-
-                if(j>=10)
+                if (j >= 10) // Si el valor es mayor que 10
                 {
-                    values[varAux] = 10;
-                    
+                    values[aux] = 10; // siempre valdrá 10
+                    aux++;
                 }
-                else
+                else // sino
                 {
-                     values[varAux] = j + 1;
-                     varAux++;
+                    values[aux] = j + 1; // valdrá j + 1
+                    aux++;
                 }
             }
         }
@@ -75,21 +73,19 @@ public class Deck : MonoBehaviour
          */    
         
 
-        int numeroRandom; // variable para el num random
-        Sprite auxFaces; // variable auxiliar
-        int auxValues; //variable auxiliar
-
-        //Baraja las cartas aleatoriamente y asocia las imágenes con los valores
+        int rndNum; // variable para el num random
+        Sprite tempFaces;
+        int tempValues;
 
         for (int i = 0; i < 52; i++) // bucle que recorre las 52 cartas
         {
-            numeroRandom = Random.Range(0, 52); //coger una carta aleatoria
-            auxFaces = faces[0]; // guardamos el 1r valor de faces en una variable auxiliar
-            faces[0] = faces[numeroRandom]; //ahora metemos un número random en faces
-            faces[numeroRandom] = auxFaces; // asociamos esa cara a ese número random
-            auxValues = values[0]; //hacemos lo mismo, el mismo número random lo usamos de nuevo
-            values[0] = values[numeroRandom]; //para que el valor coincida con el número de la carta
-            values[numeroRandom] = auxValues; 
+            rndNum = Random.Range(0, 52); // num random
+            tempFaces = faces[0]; // tempFaces valdrá lo q valga el primer valor del array faces
+            faces[0] = faces[rndNum]; // el valor valdrá un rndnum
+            faces[rndNum] = tempFaces; // ese eleemento valdrá tempFaces
+            tempValues = values[0]; // tempvalues valdrá el valor de values primera cas
+            values[0] = values[rndNum]; // que será un numRandom
+            values[rndNum] = tempValues; // y ese valdrá tempValues
         }
     }
 
@@ -147,19 +143,25 @@ public class Deck : MonoBehaviour
 
         // Teniendo la carta oculta, probabilidad de que el dealer tenga más puntuación que el jugador
 
-        if (round != 0) // si la ronda no es la primera
+        if (round != 0) // si la ronda no es 0
         {
-            int visibleDealer = valuesDealer - cardsDealer[0];
-            casosPosibles = 13 - valuesPlayer + visibleDealer; 
+            int visiblesDealer = valuesDealer - cardsDealer[0]; 
+            casosPosibles = 13 - valuesPlayer + visiblesDealer; 
             probabilidad = casosPosibles / 13f; 
 
             if (probabilidad > 1) 
             {
                 probabilidad = 1; 
             }
-            else if (probabilidad < 0)
+            else if (probabilidad < 0) 
             {
-                probabilidad = 0; 
+                probabilidad = 0;
+            }
+            int diferencia = valuesPlayer - visiblesDealer;
+
+            if (diferencia >=10)
+            {
+                probabilidad = 0;
             }
 
             probMessage.text = (probabilidad * 100).ToString() + " %"; // el texto de probabilidad será la probabilidad por 100 a string
@@ -168,31 +170,38 @@ public class Deck : MonoBehaviour
 
         //Probabilidad de que el jugador obtenga más de 21 si pide una carta
 
-        float probabilidad2a;
-        int casosPosibles2; // variable casos posibles 2
-        casosPosibles2 = 13 - (21 - valuesPlayer); // esta valdrá 13 menos (21 menos el valor del jugador)
-        probabilidad2a = casosPosibles2 / 13f;
+        float probabilidadMasDe_21; 
+        int casosPosiblesMasDe_21;
+        casosPosiblesMasDe_21 = 13 - (21 - valuesPlayer);
+        probabilidadMasDe_21 = casosPosiblesMasDe_21 / 13f;
 
-        if (probabilidad2a > 1) 
+        if (probabilidadMasDe_21 > 1) 
         {
-            probabilidad2a = 1;
+            probabilidadMasDe_21 = 1; 
         }
-        else if (probabilidad2a < 0) 
+        else if (probabilidadMasDe_21 < 0) 
         {
-            probabilidad2a = 0;
+            probabilidadMasDe_21 = 0; 
         }
 
-        probMessage1.text = (probabilidad2a * 100).ToString() + "%"; // mostramos la probabilidad
+
+        if ((21 - valuesPlayer) > 10)
+        {
+            probabilidadMasDe_21 = 0;
+        }
+        probMessage1.text = (probabilidadMasDe_21 * 100).ToString() + " %"; // mostramos la probabilidad
 
 
         // Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
 
         float probabilidad_17; // variable para la probabilidad de llegar a 17
-        int casosPosiblesLlegar_17; // variable para casps posible
-        casosPosiblesLlegar_17 = 13 - (16 - valuesPlayer); // casos posibles valdrá 13 menos (16 menos el valuesPlayer)
-        probabilidad_17 = casosPosiblesLlegar_17 / 13f; // probabilidad de llegar a 17 valdrá los casos partido 13f
+        int casosPosibles_17; // variable para casps posible
+        casosPosibles_17 = 13 - (16 - valuesPlayer); // casos posibles valdrá 13 menos (16 menos el valuesPlayer)
+        probabilidad_17 = casosPosibles_17 / 13f; // probabilidad de llegar a 17 valdrá los casos partido 13f
+        // 16 -> 16 de ellas son 10 o Figura
+        // 13 -> número de cartas de un palo
 
-        if (probabilidad_17 > 1) 
+        if (probabilidad_17 > 1)
         {
             probabilidad_17 = 1; 
         }
@@ -201,18 +210,25 @@ public class Deck : MonoBehaviour
             probabilidad_17 = 0; 
         }
 
-        float probabilidad_17_y_21 = probabilidad_17 - probabilidad2a; // probabilidad entre 17 y 21, prob de llegar a 17 menos la de 21
+        if((16 - valuesPlayer) > 10)
+        {
+            probabilidad_17 = 0;
+        }
+
+
+        float probabilidad_17_y_21 = probabilidad_17 - probabilidadMasDe_21;
 
         if (probabilidad_17_y_21 > 1) 
         {
             probabilidad_17_y_21 = 1; 
         }
-        else if (probabilidad_17_y_21 < 0)
+        else if (probabilidad_17_y_21 < 0) 
         {
-            probabilidad_17_y_21 = 0; 
+            probabilidad_17_y_21 = 0;
         }
 
         probMessage2.text = (probabilidad_17_y_21 * 100).ToString() + " %"; // mostramos la probabilidad
+
     }
 
     void PushDealer()
@@ -229,7 +245,7 @@ public class Deck : MonoBehaviour
          * Dependiendo de cómo se implemente ShuffleCards, es posible que haya que cambiar el índice.
          */
 
-        player.GetComponent<CardHand>().Push(faces[cardIndex], values[cardIndex]/*,cardCopy*/);
+        player.GetComponent<CardHand>().Push(faces[cardIndex], values[cardIndex]);
         valuesPlayer += values[cardIndex];
         cardsPlayer[round] = values[cardIndex];
         cardIndex++;
@@ -294,23 +310,23 @@ public class Deck : MonoBehaviour
 
         if (valuesDealer == 21) // si el valor del dealer es 21
         {
-            finalMessage.text = "Blacjack! Perdiste"; // pierdes
+            finalMessage.text = "Game over, Blacjack"; // pierdes
         }
         else if (valuesDealer > 21) // si el valor del dealer es mayor que 21
         {
-            finalMessage.text = "El dealer se pasó, ganaste";  // ganas
+            finalMessage.text = "The dealer has passed, you win";  // ganas
         }
         else if (valuesDealer < valuesPlayer) // si el valor del dealer es menor que el del jugador
         {
-            finalMessage.text = "Ganaste"; // ganas
+            finalMessage.text = "You win"; // ganas
         } 
         else if (valuesDealer == valuesPlayer) // si el valor del dealer es igual que el del jugador
         {
-            finalMessage.text = "Empataste"; // empatas
+            finalMessage.text = "Tie (empate)"; // empatas
         }
         else // sino
         {
-            finalMessage.text = "Perdiste"; // pierdes
+            finalMessage.text = "Game over"; // pierdes
         }
 
         stickButton.interactable = false; // inhabilitamos botón               
