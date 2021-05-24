@@ -75,19 +75,21 @@ public class Deck : MonoBehaviour
          */    
         
 
-        int rndNum; // variable para el num random
-        Sprite tempFaces;
-        int tempValues;
+        int numeroRandom; // variable para el num random
+        Sprite auxFaces; // variable auxiliar
+        int auxValues; //variable auxiliar
+
+        //Baraja las cartas aleatoriamente y asocia las imágenes con los valores
 
         for (int i = 0; i < 52; i++) // bucle que recorre las 52 cartas
         {
-            rndNum = Random.Range(0, 52); // num random
-            tempFaces = faces[0]; // tempFaces valdrá lo q valga el primer valor del array faces
-            faces[0] = faces[rndNum]; // el valor valdrá un rndnum
-            faces[rndNum] = tempFaces; // ese eleemento valdrá tempFaces
-            tempValues = values[0]; // tempvalues valdrá el valor de values primera cas
-            values[0] = values[rndNum]; // que será un numRandom
-            values[rndNum] = tempValues; // y ese valdrá tempValues
+            numeroRandom = Random.Range(0, 52); //coger una carta aleatoria
+            auxFaces = faces[0]; // guardamos el 1r valor de faces en una variable auxiliar
+            faces[0] = faces[numeroRandom]; //ahora metemos un número random en faces
+            faces[numeroRandom] = auxFaces; // asociamos esa cara a ese número random
+            auxValues = values[0]; //hacemos lo mismo, el mismo número random lo usamos de nuevo
+            values[0] = values[numeroRandom]; //para que el valor coincida con el número de la carta
+            values[numeroRandom] = auxValues; 
         }
     }
 
