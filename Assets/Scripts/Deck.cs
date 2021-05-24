@@ -46,11 +46,14 @@ public class Deck : MonoBehaviour
 
         int aux = 0;
 
-        for (int i = 0; i < 4; i++) // bucle que recorre cada palo
+        // i -> palo
+        // j -> cartas de un palo
+
+        for (int i = 0; i < 4; i++) //recorre cada palo
         {
-            for (int j = 0; j < 13; j++) // bucle que recorre cada carta de cada valo
+            for (int j = 0; j < 13; j++) // recorre cada carta de cada palo
             {
-                if (j >= 10) // Si el valor es mayor que 10
+                if (j >= 10) // Si el valor es mayor o igual a 10
                 {
                     values[aux] = 10; // siempre valdrá 10
                     aux++;
@@ -71,21 +74,21 @@ public class Deck : MonoBehaviour
          * El método Random.Range(0,n), devuelve un valor entre 0 y n-1
          * Si lo necesitas, puedes definir nuevos arrays.
          */    
-        
+        //Para barajar las cartas
 
-        int rndNum; // variable para el num random
-        Sprite tempFaces;
-        int tempValues;
+        int randomNumber; 
+        Sprite auxFaces;
+        int auxValues;
 
         for (int i = 0; i < 52; i++) // bucle que recorre las 52 cartas
         {
-            rndNum = Random.Range(0, 52); // num random
-            tempFaces = faces[0]; // tempFaces valdrá lo q valga el primer valor del array faces
-            faces[0] = faces[rndNum]; // el valor valdrá un rndnum
-            faces[rndNum] = tempFaces; // ese eleemento valdrá tempFaces
-            tempValues = values[0]; // tempvalues valdrá el valor de values primera cas
-            values[0] = values[rndNum]; // que será un numRandom
-            values[rndNum] = tempValues; // y ese valdrá tempValues
+            randomNumber = Random.Range(0, 52); // guardamos un número random que será la casilla
+            auxFaces = faces[0]; // auxFaces valdrá lo que valga el primer valor del array faces
+            faces[0] = faces[randomNumber]; // la primera casilla cambiará su posición al número aleatorio
+            faces[randomNumber] = auxFaces; // el valor guardado en auxFaces lo volvemos a meter
+            auxValues = values[0]; 
+            values[0] = values[randomNumber]; 
+            values[randomNumber] = auxValues;
         }
     }
 
@@ -106,24 +109,24 @@ public class Deck : MonoBehaviour
 
         if (valuesPlayer == 21) // si el valor de las cartas del jugador vale 21
         {
-            finalMessage.text = "Blacjack! Ganaste"; // gana el jugador
+            finalMessage.text = "Blacjack, you win"; // gana el jugador
             stickButton.interactable = false; // inhabilitamos los dos botones
             hitButton.interactable = false;
         }
         else if (valuesDealer == 21) // si el valor de las cartas del dealer vale 21
         {
-            finalMessage.text = "Blacjack! Perdiste"; // pierdes
+            finalMessage.text = "Game over, Blacjack"; // pierdes
             stickButton.interactable = false; // inhabilitamos los dos botones
         }
         if (valuesPlayer > 21) // si el valor de las cartas del jugador vale más de 21
         {
-            finalMessage.text = "Te pasaste, perdiste"; // pierdes
+            finalMessage.text = "Game over, you've passed"; // pierdes
             stickButton.interactable = false; // inhabilitamos los dos botones
             hitButton.interactable = false;
         }
         else if (valuesDealer > 21) // si el valor de las cartas del dealer vale más de 21
         {
-            finalMessage.text = "El dealer se pasó, ganaste"; // ganas
+            finalMessage.text = "The dealer has passed, you win"; // ganas
             stickButton.interactable = false; // inhabilitamos los dos botones
             hitButton.interactable = false;
         }
@@ -145,9 +148,9 @@ public class Deck : MonoBehaviour
 
         if (round != 0) // si la ronda no es 0
         {
-            int visiblesDealer = valuesDealer - cardsDealer[0]; 
-            casosPosibles = 13 - valuesPlayer + visiblesDealer; 
-            probabilidad = casosPosibles / 13f; 
+            int visiblesDealer = valuesDealer - cardsDealer[0]; //guardamos las cartas visibles del dealer
+            casosPosibles = 13 - valuesPlayer + visiblesDealer; // casos posibles que necesita el dealer para superarte
+            probabilidad = casosPosibles / 13f; // dividido entre los casos totales
 
             if (probabilidad > 1) 
             {
@@ -195,10 +198,10 @@ public class Deck : MonoBehaviour
         // Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
 
         float probabilidad_17; // variable para la probabilidad de llegar a 17
-        int casosPosibles_17; // variable para casps posible
-        casosPosibles_17 = 13 - (16 - valuesPlayer); // casos posibles valdrá 13 menos (16 menos el valuesPlayer)
-        probabilidad_17 = casosPosibles_17 / 13f; // probabilidad de llegar a 17 valdrá los casos partido 13f
-        // 16 -> 16 de ellas son 10 o Figura
+        int casosPosibles_17; // variable para casos posibles para 17
+        casosPosibles_17 = 13 - (16 - valuesPlayer);
+        probabilidad_17 = casosPosibles_17 / 13f; // partido los casos totales
+        // 16 -> descartar los 16 primeros para coger el 17
         // 13 -> número de cartas de un palo
 
         if (probabilidad_17 > 1)
@@ -303,9 +306,9 @@ public class Deck : MonoBehaviour
        * Mostramos el mensaje del que ha ganado
        */
 
-        while (valuesDealer <= 16) // mientras el valor del dealer valga 16 o menos
+        while (valuesDealer <= 16) // si el dealer tiene 16 puntos o menos
         {
-            PushDealer(); // llamamos a Pushdealer
+            PushDealer(); // el dealer roba
         }
 
         if (valuesDealer == 21) // si el valor del dealer es 21
